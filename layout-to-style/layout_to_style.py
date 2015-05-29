@@ -18,6 +18,9 @@ def main():
         cleaned_line = line.strip()
         cuts = cleaned_line.split('=')
 
+        if len(cuts) != 2:
+            continue
+
         style_key = clean_style_key(cuts[0])
         style_value = clean_style_value(cuts[1])
 
