@@ -9,6 +9,9 @@ A collection of tools for Android developers.
 
 A script to convert the layout attributes into style file format.
 
+* layout_to_style.py - Python version
+* layout-to-style.html - JavaScript version *(Recommended!)*
+
 ### Example
 
 Input:

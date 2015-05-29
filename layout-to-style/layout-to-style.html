@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>layout-to-style</title>
+
+	<style>
+		.board {
+			margin: auto;
+			width: 600px;
+		}
+		textarea {
+			width: 100%;
+			height: 220px;
+			padding: 10px;
+		}
+	</style>
+
+	<script>
+		function convertLayoutToStyle() {
+			var head = '<style name="">';
+			var foot = '</style>';
+
+			var resultLines = [];
+			resultLines.push(head);
+
+			var inputLines = document.getElementById("inputContent").value.split('\n');
+			for (var i = 0; i < inputLines.length; i++) {
+				var cuts = inputLines[i].split('=');
+				if (cuts.length != 2) {
+					continue;
+				}
+				var styleKey = cuts[0].trim();
+				var styleValue = function(text) {
+					var start = text.indexOf('"') + 1;
+					var end = text.lastIndexOf('"');
+					return text.substring(start, end);
+				}(cuts[1]);
+				resultLines.push('	<item name="' + styleKey + '">' + styleValue + '</item>');
+			}
+
+			resultLines.push(foot);
+			document.getElementById("outputContent").value = resultLines.join('\n');
+		}
+	</script>
+</head>
+
+<body>
+	<div class="board">
+		<div id="inputBlock" oninput="convertLayoutToStyle()">
+			<p>Input</p>
+			<textarea id="inputContent"></textarea>
+		</div>
+		<div id="outputBlock">
+			<p>Output</p>
+			<textarea id="outputContent"></textarea>
+		</div>
+	</div>
+</body>
+</html>
